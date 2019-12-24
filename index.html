@@ -39,11 +39,21 @@
     $("#currentDay").text(datetime);
 
 
-
+    var indTask = {hour: "",task:""};
+    var taskArray = [];
 
 
     renderPage()
     function renderPage() {
+      var storedTodos = JSON.parse(localStorage.getItem("todos"));
+
+     
+
+if(storedTodos){
+  todos = storedTodos;
+}
+      
+      
       var auxDiv;
       var hourDiv;
       var taskDiv;
@@ -52,10 +62,10 @@
 
       for (var i = 9; i <= 17; i++) {
         auxDiv = $("<div class = 'row'>");
-        hourDiv = $("<div class = 'hourDiv col-1'>");
+        hourDiv = $("<div class = 'hourDiv col-1 p-2 b-1'>");
         // taskDiv = $("<div class = 'taskDiv col-10'>");
         taskDiv = $("<textarea class='form-control taskDiv col-10'>");
-        saveBtn = $("<div class = 'saveButton col-1'>");
+        saveBtn = $("<div class = 'saveButton col-1 p-2'>").text("save");
 
         if (i > 12) {
           hourDiv.text((i - 12) + " PM");
@@ -66,12 +76,12 @@
         if (currentdate.getHours() === i) {
           taskDiv.attr("style", "background-color:red;");
         } else if (currentdate.getHours() > i) {
-          taskDiv.attr("style", "background-color:gray;");
+          taskDiv.attr("style", "background-color:lightblue;");
         } else {
           taskDiv.attr("style", "background-color:green;");
         }
 
-        saveBtn.attr("id", i + "-hourBtn");
+        saveBtn.attr({"id": i + "-hourBtn","style": "background-color:cyan;"});
         taskDiv.attr("id", i + "-hourDiv");
         scheduleDiv.append(auxDiv.append(hourDiv, taskDiv, saveBtn));
 
@@ -83,7 +93,14 @@
 
     $(".saveButton").on("click", function (e) {
       e.preventDefault();
-      console.log(e.target.getAttribute("id"))
+      var buttonId = e.target.getAttribute("id").substr(0, e.target.getAttribute("id").indexOf('-'));
+      console.log(buttonId);
+      console.log(`${buttonId}-hourDiv`);
+      if($(`#${buttonId}-hourDiv`).val()!==""){
+        console.log($(`#${buttonId}-hourDiv`).val());
+      } else {
+        return;
+      }
     })
 
 
