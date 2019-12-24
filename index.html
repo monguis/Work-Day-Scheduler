@@ -49,10 +49,12 @@
       var taskDiv;
       var saveBtn;
 
+
       for (var i = 9; i <= 17; i++) {
         auxDiv = $("<div class = 'row'>");
         hourDiv = $("<div class = 'hourDiv col-1'>");
-        taskDiv = $("<div class = 'taskDiv col-10'>");
+        // taskDiv = $("<div class = 'taskDiv col-10'>");
+        taskDiv = $("<textarea class='form-control taskDiv col-10'>");
         saveBtn = $("<div class = 'saveButton col-1'>");
 
         if (i > 12) {
@@ -62,11 +64,11 @@
         }
 
         if (currentdate.getHours() === i) {
-          taskDiv.text("red");
+          taskDiv.attr("style", "background-color:red;");
         } else if (currentdate.getHours() > i) {
-          taskDiv.text("gray");
+          taskDiv.attr("style", "background-color:gray;");
         } else {
-          taskDiv.text("green");
+          taskDiv.attr("style", "background-color:green;");
         }
 
         saveBtn.attr("id", i + "-hourBtn");
@@ -81,7 +83,7 @@
 
     $(".saveButton").on("click", function (e) {
       e.preventDefault();
-console.log(e.target.getAttribute("id"))
+      console.log(e.target.getAttribute("id"))
     })
 
 
